@@ -1,0 +1,131 @@
+package de.tha.prog2.airport.management;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+import de.tha.prog2.airport.staff.Employee;
+import de.tha.prog2.airport.staff.FlightAttendant;
+import de.tha.prog2.airport.staff.GroundStaff;
+import de.tha.prog2.airport.staff.Pilot;
+
+public class EmployeeList {
+	
+	ListNode head;
+	
+	public void add(Employee employee) {
+		ListNode newEmployee = new ListNode(employee, null);
+		
+		if (head == null) {
+			head = newEmployee;
+			return;
+		}
+		if (newEmployee.employee.getEmployeeId() < head.employee.getEmployeeId()) {
+			newEmployee.next = head;
+			head = newEmployee;
+			return;
+		}
+		
+		ListNode current = head;
+		
+		while (current.next != null &&
+			   current.next.employee.getEmployeeId() < newEmployee.employee.getEmployeeId()) {
+			current = current.next;
+		}
+		newEmployee.next = current.next;
+		current.next = newEmployee;
+		
+	}
+	
+	public void remove(int employeeId) {
+		
+		if (head == null) {
+			System.out.println("List is empty!");
+			return;
+		}
+		
+		if (head.employee.getEmployeeId() == employeeId) {
+			head = head.next;
+			System.out.println("Employee removed!");
+			return;
+		}
+		
+		ListNode current = head;
+		
+		while (current.next != null) {
+			if (current.next.employee.getEmployeeId() == employeeId) {
+				current.next = current.next.next;
+				System.out.println("Employee removed!");
+				return;
+			}
+			current = current.next;
+		}
+		System.out.println("No employee matched the given Id");
+	}
+	
+	public EmployeeList getPilots() {
+		
+		EmployeeList onlyPilots = new EmployeeList();
+		ListNode current = head;
+		
+		while (current != null) {
+			if ((current.employee instanceof Pilot)) {
+				onlyPilots.add(current.employee);
+			}
+			current = current.next;
+		}
+		return onlyPilots;
+	}
+	
+	public EmployeeList getGroundStaff() {
+		
+		EmployeeList onlyGroundStaff = new EmployeeList();
+		ListNode current = head;
+		
+		while (current != null) {
+			if ((current.employee instanceof GroundStaff)) {
+				onlyGroundStaff.add(current.employee);
+			}
+			current = current.next;
+		}
+		return onlyGroundStaff;
+	}
+	
+	public EmployeeList getFlightAttendants() {
+		
+		EmployeeList onlyFlightAttendants = new EmployeeList();
+		ListNode current = head;
+		
+		while (current != null) {
+			if ((current.employee instanceof FlightAttendant)) {
+				onlyFlightAttendants.add(current.employee);
+			}
+			current = current.next;
+		}
+		return onlyFlightAttendants;
+	}
+	
+	public String toString() {
+		ListNode current = head;
+		String result = "";
+		
+		while (current != null) {
+			result += current.employee.toString();
+			if (current.next != null) {
+				result += "\n";
+			}
+			current = current.next;
+		}
+		return result;
+	}
+	
+}
+
+class ListNode {
+	Employee employee;
+	ListNode next;
+
+	public ListNode(Employee employee, ListNode next) {
+		this.employee = employee;
+		this.next = next;
+	}
+
+}
