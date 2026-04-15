@@ -1,0 +1,38 @@
+package de.tha.prog2.airport.staff;
+
+public abstract class Employee {
+	
+	protected int employeeId;
+	protected double baseSalary;
+	protected String firstName;
+	protected String lastName;
+	private static int nextEmpoyeeId = 1;
+	
+	public Employee(String lastName, String firstName, double baseSalary) {
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.baseSalary = baseSalary;
+		this.employeeId = nextEmpoyeeId;
+		nextEmpoyeeId++;
+	}
+	
+	public abstract void promote();
+	
+	public double calculateSalary() {
+		return this.baseSalary;
+	}
+	
+	public int getEmployeeId() {
+		return this.employeeId;
+	}
+	
+	public String toString() {
+		String result = "";
+		result = "Employee{id=" + this.employeeId + ", lastName=" + this.lastName + ", firstName=" + this.firstName
+				+ ", baseSalary=" + this.baseSalary +"}";
+		return result;
+	}
+	
+	
+
+}
