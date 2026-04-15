@@ -1,0 +1,33 @@
+package de.tha.prog2.airport.staff;
+
+public class Pilot extends Employee {
+	
+	private Rank rank;
+	
+	public Pilot(String lastName, String firstName, Rank rank) {
+		super(lastName,firstName, rank.getBaseSalary());
+		this.rank = rank;
+	}
+	
+	public void promote() {
+		if (this.rank == Rank.COPILOT) {
+			this.rank = Rank.FIRST_OFFICER;
+			this.baseSalary = 7000;
+			System.out.println(this.firstName + " " + this.lastName + " promoted to FIRST_OFFICER.");
+			return;
+		} else if (this.rank == Rank.FIRST_OFFICER) {
+			this.rank = Rank.CAPTAIN;
+			this.baseSalary = 9000;
+			System.out.println(this.firstName + " " + this.lastName + " promoted to CAPTAIN.");
+			return;
+		} else if (this.rank == Rank.CAPTAIN){
+			System.out.println(this.firstName + " " + this.lastName + " is already at highest rank.");
+			return;
+		}
+	}
+	
+	public double calculateBaseSalary() {
+		return super.baseSalary;
+	}
+
+}
