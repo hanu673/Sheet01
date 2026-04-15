@@ -1,0 +1,49 @@
+package de.tha.prog2.airport.staff;
+
+public class GroundStaff extends Employee {
+	
+	private int level;
+	private Department department;
+	private int overtimeHours;
+	private Department oldDepartment;
+	private double salary;
+	
+	public GroundStaff(String lastName, String firstName, Department department) {
+		super(lastName, firstName, department.getBaseSalary());
+		this.department = department;
+	}
+	
+	public void addExtraTime() {
+		this.overtimeHours++;
+	}
+	
+	public void addExtraTime(int hours) {
+		this.overtimeHours += hours;
+	}
+	
+	public void promote() {
+		if (level >= 3) {
+			System.out.println(this.firstName + " " + this.lastName +  " cannot be promoted further.");
+			return;
+		}
+		this.baseSalary += this.baseSalary * 0.05;
+		System.out.println(this.firstName + " " + this.lastName + " promoted to level " + ++level + ".");
+	}
+	
+	public void changeDepartment(Department department) {
+		oldDepartment = this.department;
+		this.department = department;
+		level = 0;
+		this.baseSalary = department.getBaseSalary();
+		System.out.println(firstName + " " + lastName + " changed department from " +
+						   oldDepartment + " to " + this.department + ".");
+	}
+	
+	public double calculateSalary() {
+		salary = baseSalary + baseSalary * overtimeHours/160.0;
+		return salary;
+		
+	}
+	
+
+}
