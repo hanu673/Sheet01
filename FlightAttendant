@@ -1,0 +1,28 @@
+package de.tha.prog2.airport.staff;
+
+public class FlightAttendant extends Employee {
+	
+	private boolean isLeadAttendant;
+	
+	public FlightAttendant(String lastName, String firstName) {
+		super(lastName, firstName, 3500);
+		
+	}
+
+	@Override
+	public void promote() {
+		if (super.calculateSalary() == 4025) {
+			System.out.println("Max Mustermann is already a lead flight attendant.");
+			return;
+		} else {
+			super.baseSalary = 4025;
+			System.out.println("Max Mustermann promoted to lead flight attendant.");
+			return;
+		}
+	}
+	
+	public double calculateSalary() {
+		return super.baseSalary;
+	}
+
+}
